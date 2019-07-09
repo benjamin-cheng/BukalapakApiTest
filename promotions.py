@@ -23,16 +23,16 @@ def print_promotions_json_result(type_name, url, access_token):
         status_code=str(promotions_response.status_code),
         raise_for_status=str(promotions_response.raise_for_status())
     ))
-    service_json = json.loads(promotions_response.text)
+    promotions_json = json.loads(promotions_response.text)
     print("{type_name} promotions result:\n {json_result}".format(
           type_name=type_name,
-          json_result=json.dumps(service_json, indent=4)
+          json_result=json.dumps(promotions_json, indent=4)
           ))
 
 
 access_token = get_access_token()
 
-service_dict = (
+promotions_dict = (
     ('all', 'https://api.bukalapak.com/info/promotions?sort=-start_date&limit=15&offset=0&access_token='),
     ('new user', 'https://api.bukalapak.com/info/promotions?sort=-start_date&type=new_user&limit=15&offset=0&access_token='),
     ('item', 'https://api.bukalapak.com/info/promotions?sort=-start_date&type=item&limit=15&offset=0&access_token='),
@@ -45,5 +45,5 @@ service_dict = (
     ('others', 'https://api.bukalapak.com/info/promotions?sort=-start_date&type=others&limit=15&offset=0&access_token='),
 )
 
-for type_name, url in service_dict:
+for type_name, url in promotions_dict:
     print_promotions_json_result(type_name, url, access_token)
